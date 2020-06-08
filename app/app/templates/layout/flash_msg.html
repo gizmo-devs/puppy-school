@@ -1,0 +1,12 @@
+{% for category, message in messages %}
+    {% if category|lower in ['error', 'danger'] %}
+        {% set alert_type = 'danger' %}
+    {% else %}
+        {% set alert_type = 'success' %}
+    {% endif %}
+    <div class="alert alert-{{alert_type|lower}} alert-dismissible fade show m-2">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>{{category}}</strong> {{ message }}.
+    </div>
+{% endfor %}
+

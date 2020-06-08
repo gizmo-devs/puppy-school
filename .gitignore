@@ -1,0 +1,7 @@
+
+.DS_Store
+.idea
+
+*.pyc
+app/app/static/src/pug/*
+app/app/static/src/scss/*

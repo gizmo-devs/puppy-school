@@ -1,0 +1,62 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+{%block content%}
+
+<div class="container-fluid">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+    <div class="row">
+        {% set cards = [
+            ('Loo Break', 'last_loo_break', 'scheduled_loo', 'fa-poop', 'loo.index'),
+            ('Weighed','last_weighed', None, 'fa-balance-scale', 'weight.index')
+        ]%}
+        {# ('Fed', 'last_fed', '', ''), #}
+        {% for title, element_name, element_name_next, icon, link in cards %}
+        <div class="col-xl-3 col-md-6">
+            <div class="card mb-4">
+                <h5 class="card-header"><i class="fas {{icon}}"></i> Last {{title}}</h5>
+                <ul class="list-group list-group-flush">
+                    {% for dog in session['dogs'] %}
+                        <li class="list-group-item ">
+                            <strong>{{dog.name}}</strong>
+                            {% if (element_name_next != None) and (dog[element_name] != None) and (dog[element_name_next] != None) %}
+                              {{ dog[element_name].strftime('%H:%M') }} {{dog[element_name_next].strftime('%H:%M')}}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small stretched-link" href="{{url_for(link)}}">View Details</a>
+                    <div class="small"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Weight Gain</div>
+                <div class="card-body">
+                    <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Bar Chart Example</div>
+                <div class="card-body">
+                    <canvas id="myBarChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,185 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Dogs Add / Edit{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">Dogs</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item">Dogs</li>
+        <li class="breadcrumb-item active">Upsert</li>
+    </ol>
+    <form method="post">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-dog mr-1"></i>Dog Information
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="form-group">
+                            <label class="small mb-1">Dogs Date of Birth:</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputDogDOBYear">YYYY</label>
+                                </div>
+                                <input type="text" class="form-control" placeholder="YYYY"
+                                       id="inputDogDOBYear" name="inputDogDOBYear"
+                                       value="{{dog.dob.year if (dog is defined) and (dog.dob is defined)}}">
+                                <div class="input-group-prepend input-group-append">
+                                    <label class="input-group-text" for="inputDogDOBMonth">MM</label>
+                                </div>
+                                <input type="text" class="form-control" placeholder="MM"
+                                       id="inputDogDOBMonth" name="inputDogDOBMonth"
+                                       value="{{dog.dob.month if dog is defined and (dog.dob is defined)}}">
+                                <div class="input-group-prepend input-group-append">
+                                    <label class="input-group-text" for="inputDogDOBDay">DD</label>
+                                </div>
+                                <input type="text" class="form-control" placeholder="DD"
+                                       id="inputDogDOBDay" name="inputDogDOBDay"
+                                       value="{{dog.dob.day if dog is defined and (dog.dob is defined)}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label class="small mb-1">&nbsp;</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Age:</span>
+                            </div>
+                            <input type="text" id="calcDogAge" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <!--                <div class="input-group">-->
+                <!--                    <input class="form-control py-4" id="inputDogDOB" name="inputDogDOB" type="date"-->
+                <!--                           aria-describedby="dobHelp" placeholder="Date of Birth e.g. 10/04/2020"-->
+                <!--                           value="{{ dog.dob if dog is defined}}"/>-->
+                <!--                    <div class="input-group-append">-->
+                <!--                        <span class="input-group-text"></span>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <div class="form-group">
+                    <label class="small mb-1" for="inputDogName">Dogs Name:</label>
+                    <input class="form-control py-4" id="inputDogName" name="inputDogName" type="text"
+                           aria-describedby="nameHelp" placeholder="Name e.g. Rex"
+                           value="{{ dog.name if dog is defined}}"/></div>
+                <div class="form-group">
+                    <label class="small mb-1" for="inputDogBread">Dogs Bread:</label>
+                    <input class="form-control py-4" id="inputDogBread" name="inputDogBread" type="text"
+                           aria-describedby="nameHelp" placeholder="Name e.g. Cocker Spaniel"
+                           value="{{ dog.bread if dog is defined}}"/></div>
+                <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
+                    <label class="btn btn-lg btn-secondary flex-fill {{ 'active' if (dog is defined) and (dog.gender == "M")}}">
+                    <input type="radio" name="genderOptions" id="option1" autocomplete="off" value="M"
+                           {{'checked' if (dog is defined) and (dog.gender == "M")}}>
+                    <i class="fas fa-male"></i> Boy
+                    </label>
+                    <label class="btn btn-lg btn-secondary flex-fill {{ 'active' if (dog is defined) and (dog.gender == "F")}}">
+                    <input type="radio" name="genderOptions" id="option2" autocomplete="off" value="F"
+                           {{'checked' if (dog is defined) and (dog.gender == "F")}}>
+                    <i class="fas fa-female"></i> Girl
+                    </label>
+                </div>
+            </div>
+
+            <!--            <div class="card-footer text-muted d-flex">-->
+            <!--                <a class="btn btn-danger ml-auto" href="{{url_for('dogs.index')}}">Cancel</a>-->
+            <!--                <button type="submit" class="btn btn-success">Save</button>-->
+
+            <!--            </div>-->
+
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-dog mr-1"></i>Dog Habbits
+            </div>
+            <div class="card-body">
+<!--                <div class="form-row">-->
+<!--                    <div class="col">-->
+<!--                        <div class="input-group mb-3">-->
+<!--                            <div class="input-group-prepend">-->
+<!--                                <label class="input-group-text" for="inputDailyFeeds">Daily Feeds</label>-->
+<!--                            </div>-->
+<!--                            <input type="text" class="form-control" placeholder="e.g. 30m"-->
+<!--                                   id="inputDailyFeeds" name="inputDailyFeeds"-->
+<!--                                   value="{{dog.loo_intervals if (dog is defined) }}">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col">-->
+<!--                        <div class="input-group mb-3">-->
+<!--                            <div class="input-group-prepend">-->
+<!--                                <label class="input-group-text" for="inputDailyWalks">Daily Walks</label>-->
+<!--                            </div>-->
+<!--                            <input type="text" class="form-control" placeholder="e.g. 30m"-->
+<!--                                   id="inputDailyWalks" name="inputDailyWalks"-->
+<!--                                   value="{{dog.food_intervals if dog is defined}}">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="form-row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputLoo">Loo</label>
+                            </div>
+                            <input type="text" class="form-control" placeholder="e.g. 30m"
+                                   id="inputLoo" name="inputLoo"
+                                   value="{{dog.loo_intervals if (dog is defined) }}">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputFeeds">Feeds</label>
+                            </div>
+                            <input type="text" class="form-control" placeholder="e.g. 30m"
+                                   id="inputFeeds" name="inputFeeds"
+                                   value="{{dog.food_intervals if dog is defined}}">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend ">
+                                <label class="input-group-text" for="inputWalk">Walks</label>
+                            </div>
+                            <input type="text" class="form-control" placeholder="e.g. 30m"
+                                   id="inputWalk" name="inputWalk" value="{{dog.walk_intervals if (dog is defined)}}">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend ">
+                                <label class="input-group-text" for="inputAlone">Alone</label>
+                            </div>
+                            <input type="text" class="form-control" placeholder="e.g. 30m"
+                                   id="inputAlone" name="inputAlone"
+                                   value="{{dog.alone_intervals if dog is defined}}">
+                        </div>
+                    </div>
+                </div>
+                <!--                <div class="input-group">-->
+                <!--                    <input class="form-control py-4" id="inputDogDOB" name="inputDogDOB" type="date"-->
+                <!--                           aria-describedby="dobHelp" placeholder="Date of Birth e.g. 10/04/2020"-->
+                <!--                           value="{{ dog.dob if dog is defined}}"/>-->
+                <!--                    <div class="input-group-append">-->
+                <!--                        <span class="input-group-text"></span>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+
+            </div>
+
+            <div class="card-footer text-muted d-flex">
+                <a class="btn btn-danger ml-auto" href="{{url_for('dogs.index')}}">Cancel</a>
+                <button type="submit" class="btn btn-success">Save</button>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+
+{% endblock %}

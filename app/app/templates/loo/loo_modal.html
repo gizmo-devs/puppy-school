@@ -1,0 +1,57 @@
+<!-- The Modal -->
+<div class="modal fade" id="walkModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Dog Loo Breaks</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form method="post" action="{{url_for('loo.upsert')}}">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <label for="inputDog">Dog:</label>
+                    <div class="form-group">
+                        <div class="btn-group-toggle d-flex" data-toggle="buttons">
+                        {% for dog in dog_data%}
+                        <label class="btn btn-secondary btn-block m-1">
+                            <input type="radio" name="inputDog" id="option{{loop.index}}"
+                                   value="{{dog.info.id}}" autocomplete="off"> {{dog.info.name}} <i class="fas fa-check fade"></i>
+                        </label>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    </i>
+                    {% for opt in ['Type']%}
+                    <label>{{opt}}:</label>
+                        <div class="btn-group-toggle d-flex mb-3" data-toggle="buttons">
+                            <label class="btn btn-secondary btn-block m-1">
+                                <input type="radio" name="{{opt|lower}}_options" id="{{opt|lower}}_1"
+                                       autocomplete="off" value="Liquid"> Liquid <i class="fas fa-check fade"></i>
+                            </label>
+                            <label class="btn btn-secondary btn-block m-1">
+                                <input type="radio" name="{{opt|lower}}_options" id="{{opt|lower}}_2"
+                                       autocomplete="off" value="Runny Solid"> Runny Solid <i class="fas fa-check fade"></i>
+                            </label>
+                            <label class="btn btn-secondary btn-block m-1">
+                                <input type="radio" name="{{opt|lower}}_options" id="{{opt|lower}}_3"
+                                       autocomplete="off" value="Solid"> Solid <i class="fas fa-check fade"></i>
+                            </label>
+                    </div>
+                    {% endfor %}
+                    <div class="form-group">
+                        <label for="inputNotes">Notes:</label>
+                        <textarea class="form-control" name="inputNotes" rows="5" id="inputNotes"></textarea>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button class="btn btn-success" type="submit">Save</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

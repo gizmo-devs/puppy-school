@@ -1,0 +1,86 @@
+<!-- The Modal -->
+<div class="modal fade" id="walkModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Dog Walks</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form method="post" action="{{url_for('walks.upsert')}}">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <label for="inputDog">Dog:</label>
+                    <div class="form-group">
+                        <div class="btn-group-toggle d-flex" data-toggle="buttons">
+                        {% for dog in dog_data%}
+                        <label class="btn btn-secondary btn-block m-1">
+                            <input type="radio" name="inputDog" id="option{{loop.index}}"
+                                   value="{{dog.info.id}}" autocomplete="off"> {{dog.info.name}}
+                        </label>
+                        {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputLoc">Route</label>
+                        </div>
+                        <select id="inputLoc" name="inputLoc" class="custom-select" required>
+                            <option selected>Select a Location</option>
+                            <option value="Park">Park</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    {% for opt in ['Behaviour', 'Callback', 'Socialised']%}
+                    <div class="form-group mb-3 d-flex form-row">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputDog">{{opt}}</label>
+                        </div>
+
+                        <div class="btn-group btn-group-toggle flex-grow-1" data-toggle="buttons">
+                            <label class="btn btn-secondary">
+                                <input class="rate_cb" type="radio" name="{{opt|lower}}_options" id="{{opt|lower}}_1"
+                                       autocomplete="off" value="1">
+                                <i class="fas fa-star"></i> x1
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input class="rate_cb" type="radio" name="{{opt|lower}}_options" id="{{opt|lower}}_2"
+                                       autocomplete="off" value="2">
+                                <i class="fas fa-star"></i> x2
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input class="rate_cb" type="radio" name="{{opt|lower}}_options" id="{{opt|lower}}_3"
+                                       autocomplete="off" value="3">
+                                <i class="fas fa-star"></i> x3
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input class="rate_cb" type="radio" name="{{opt|lower}}_options" id="{{opt|lower}}_4"
+                                       autocomplete="off"value="4">
+                                <i class="fas fa-star"></i> x4
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input class="rate_cb" type="radio" name="{{opt|lower}}_options" id="{{opt|lower}}_5"
+                                       autocomplete="off" value="5">
+                                <i class="fas fa-star"></i> x5
+                            </label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="form-group">
+                        <label for="inputNotes">Notes:</label>
+                        <textarea class="form-control" name="inputNotes" rows="5" id="inputNotes"></textarea>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button class="btn btn-success" type="submit">Save</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

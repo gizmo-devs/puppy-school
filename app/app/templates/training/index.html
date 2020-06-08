@@ -1,0 +1,102 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Training{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">Training</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Training</li>
+    </ol>
+
+    <p>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" >Toggle both elements</button>
+</p>
+<div class="row">
+  <div class="col">
+    <div class="collapse multi-collapse">
+      <div class="card card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="collapse multi-collapse">
+      <div class="card card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    {% for dog in dog_data %}
+    <div class="card mb-4">
+        <div class="card-header d-flex">
+            <h3>
+                <i class="fas fa-dog mr-1"></i> {{dog.info.name}}
+            </h3>
+            <a href="{{url_for('training.command_link', dog_id=dog.info.id)}}" role="button" class="btn btn-primary ml-auto mr-1">
+                Link Commands
+            </a>
+            <button type="button" class="btn btn-primary opn_training_modal" data-dog-id={{dog.info.id}}>
+                Log Training
+            </button>
+        </div>
+        <div class="card-body">
+            {% for command in dog.dog_training %}
+            {{"<div class='row'>"|safe if loop.index0 % 2 == 0 }}
+                <div class="col-6">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex">
+                            <h3>{{command.command}}</h3>
+                            <span class="ml-auto badge badge-secondary align-self-center">
+                                {{command.level}}
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            {{command.description if not command.description == None }}
+                            <h4>History</h4>
+                            {% if command.progress|length > 0 %}
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Date</th><th>Score</th>
+                                </tr>
+                                </thead>
+                                {% if command.progress|length >3%}
+                                {% set collapse_class = command.id|string + "_multi-collapse" %}
+                                {% set full_class = [collapse_class, 'collapse']%}
+                                <tfoot>
+                                <tr>
+                                    <th colspan="2">
+                                        <a href=".{{collapse_class}}" class="btn btn-primary" role="button" data-toggle="collapse"  >
+                                            More</a>
+                                    </th>
+                                </tr>
+                                </tfoot>
+                                {% endif %}
+                                <tbody>
+                                    {% for rec in command.progress%}
+                                        <tr class="{{full_class|join(' ')|string if loop.index > 3 }}">
+                                            <td>{{rec.rec_date.strftime('%d %b %H:%M')}}</td>
+                                            <td>{{rec.command_progress}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                            Nothing Recorded
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {{ "</div>"|safe if (loop.index0 % 2 == 1) or loop.last }}
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% include 'training/training_modal.html'%}
+{% endblock %}

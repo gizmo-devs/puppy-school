@@ -1,0 +1,145 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Walks{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">Walks</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Walks</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-body row">
+            {% for dog in dog_data %}
+            <div class="col-md-6">
+                <canvas id="myAreaChart_{{dog.info.id}}" width="100%" height="30"></canvas>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header d-flex">
+            <h3><i class="fas fa-table mr-1"></i>
+            History</h3>
+            <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#walkModal">
+                Log Walk
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {% for dog in dog_data %}
+                <div class="col">
+                    <h4>{{dog.name}}</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Location</th>
+                                <th>Behaviour Score</th>
+                                <th>Socialised Score</th>
+                                <th>Callback Score</th>
+                                <th>Total Score</th>
+
+                                <th>Notes</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for rec in dog.walks %}
+                            <tr>
+                                <td>{{rec.walked_date.strftime('%d %b %Y %H:%M')}}</td>
+                                <td>{{rec.loc}}</td>
+                                <td>{{rec.behaviour_score}}</td>
+                                <td>{{rec.callback_score}}</td>
+                                <td>{{rec.socialised_score}}</td>
+                                <td>{{rec.total_score}}</td>
+
+                                <td>{{'True' if rec.note}}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td class="text-center" colspan="7">No Walks recorded</td>
+                            </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endfor%}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'walks/walks_modal.html' %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script>
+{% for dog in dog_data %}
+var ctx = document.getElementById("myAreaChart_{{dog.info.id}}");
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: [
+        {% for record in dog.chart_data[0] %}
+            "{{-record.strftime('%d %b %Y')}}"{{',' if not loop.last-}}
+        {% endfor %}
+    ],
+    datasets: [{
+      label: "{{dog.info.name}}",
+      lineTension: 0.3,
+      backgroundColor: "rgba(2,117,216,0.2)",
+      borderColor: "rgba(2,117,216,1)",
+      pointRadius: 5,
+      pointBackgroundColor: "rgba(2,117,216,1)",
+      pointBorderColor: "rgba(255,255,255,0.8)",
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "rgba(2,117,216,1)",
+      pointHitRadius: 50,
+      pointBorderWidth: 2,
+      data: [
+      {% for record in dog.chart_data[1] %}
+        {{-record}}{{',' if not loop.last-}}
+      {% endfor %}
+      ],
+    }],
+  },
+  options: {
+    title: {
+        display: true,
+        text: '{{dog.info.name}}'
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false
+        },
+        ticks: {
+          maxTicksLimit: 7
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          //max: 40000,
+          maxTicksLimit: 5
+        },
+        gridLines: {
+          color: "rgba(0, 0, 0, .125)",
+        }
+      }],
+    },
+    legend: {
+      display: false
+    }
+  }
+});
+{% endfor %}
+
+</script>
+{% endblock %}

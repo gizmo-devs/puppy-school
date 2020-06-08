@@ -1,0 +1,49 @@
+<!-- The Modal -->
+<div class="modal fade" id="trainingModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Dog Training</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form method="post" action="{{url_for('training.upsert')}}">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <label>Dog:</label>
+                    <div class="form-group">
+                        <div class="btn-group-toggle d-flex" data-toggle="buttons">
+                        {% for dog in dog_data%}
+                        <label class="btn btn-secondary btn-block m-1">
+                            <input type="radio" required name="inputDog" id="option{{loop.index}}"
+                                   value="{{dog.info.id}}"> {{dog.info.name}}  <i class="fas fa-check fade"></i>
+                        </label>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    {% for command in commands%}
+                    <div class="form-group d-none" data-command-id="{{command.id}}">
+                        <label for="command{{command.id}}Range">{{command.command}}</label>
+                        <input type="range" class="custom-range" id="command{{command.id}}Range"
+                               name="rangeInput_{{command.id}}"
+                               min="0" max="10" value="0">
+                        <i></i>
+                    </div>
+                    {% endfor %}
+<!--                    <div class="form-group">-->
+<!--                        <label for="inputNotes">Notes:</label>-->
+<!--                        <textarea class="form-control" name="inputNotes" rows="5" id="inputNotes"></textarea>-->
+<!--                    </div>-->
+
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button class="btn btn-success" type="submit">Save</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
