@@ -19,7 +19,7 @@ def create_app(config_filename=None):
         app.config.from_mapping(config_filename)
 
     with app.app_context():
-        from core import app_setup
+        from .core import app_setup
 
     return app
 
