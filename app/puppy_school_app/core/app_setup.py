@@ -13,6 +13,7 @@ app.config.from_mapping(
     )
 try:
     os.makedirs(app.instance_path)
+    db.init_db()
 except OSError:
     pass
 
