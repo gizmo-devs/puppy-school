@@ -1,5 +1,5 @@
 from main import app
-from api import api
+# from api import api
 from core import database as db, auth, scheduler
 from models import dogs, weight, walks, training, loo, commands, feeds
 
