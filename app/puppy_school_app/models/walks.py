@@ -1,10 +1,10 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for, jsonify, make_response
+    Blueprint, flash, redirect, render_template, request, session, url_for
 )
-from ..core.auth import login_required
-from ..core.database import get_db, query_db, upsert_query
+from core.auth import login_required
+from core.database import query_db, upsert_query
 
-import datetime, json
+import datetime
 
 bp = Blueprint('walks', __name__, url_prefix='/walks')
 

@@ -1,15 +1,15 @@
 # from main import app
 # from api import api
-from ..core import database as db, auth, scheduler
-from ..models import dogs, weight, walks, training, loo, commands, feeds
+from core import database as db, auth, scheduler
+from models import feeds, weight, training, dogs, loo, commands, walks
 
-from flask import render_template, session, current_app as app
+from flask import render_template, current_app as app
 
 import os
-
+print(app.instance_path)
 app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'doggie-school.sqlite'),
+        DATABASE=os.path.join(app.instance_path, 'puppy-school.sqlite'),
     )
 try:
     os.makedirs(app.instance_path)

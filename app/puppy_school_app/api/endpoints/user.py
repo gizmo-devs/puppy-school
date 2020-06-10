@@ -1,9 +1,4 @@
-from flask import jsonify
-
-from ..utils import senseless_print
-
-from ...main import app
-# from ...core.database import get_users
+# from .core.database import get_users
 
 
 # @app.route('/users/')

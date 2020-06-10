@@ -1,8 +1,8 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, redirect, render_template, request, session, url_for
 )
-from ..core.database import get_db, query_db
-from ..core.auth import login_required
+from core.database import get_db, query_db
+from core.auth import login_required
 
 import sqlite3
 bp = Blueprint('dogs', __name__, url_prefix='/dogs')
