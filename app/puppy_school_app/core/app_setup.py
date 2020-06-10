@@ -1,7 +1,7 @@
-from puppy_school_app.main import app
-from puppy_school_app.api import api
-from puppy_school_app.core import database as db, auth, scheduler
-from puppy_school_app.models import dogs, weight, walks, training, loo, commands, feeds
+from main import app
+from api import api
+from core import database as db, auth, scheduler
+from models import dogs, weight, walks, training, loo, commands, feeds
 
 from flask import render_template, session
 

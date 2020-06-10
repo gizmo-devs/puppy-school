@@ -1,8 +1,8 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for, jsonify, make_response
 )
-from ..core.database import get_db, query_db, upsert_query
-# from ..api.whatsapp import send
+from core.database import get_db, query_db, upsert_query
+# from api.whatsapp import send
 
 import datetime, json
 import time

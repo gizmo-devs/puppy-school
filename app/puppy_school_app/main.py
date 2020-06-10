@@ -3,7 +3,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
-from puppy_school_app.core import app_setup
+from core import app_setup
 
 #api = Api(app)
 #from .core import api_setup
