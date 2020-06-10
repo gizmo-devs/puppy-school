@@ -1,7 +1,7 @@
 # from main import app
 # from api import api
-from core import database as db, auth, scheduler
-from models import feeds, weight, training, dogs, loo, commands, walks
+from ..core import database as db, auth, scheduler
+from ..models import feeds, weight, training, dogs, loo, commands, walks
 
 from flask import render_template, current_app as app
 

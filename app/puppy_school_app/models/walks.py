@@ -1,8 +1,8 @@
 from flask import (
     Blueprint, flash, redirect, render_template, request, session, url_for
 )
-from core.auth import login_required
-from core.database import query_db, upsert_query
+from ..core.auth import login_required
+from ..core.database import query_db, upsert_query
 
 import datetime
 

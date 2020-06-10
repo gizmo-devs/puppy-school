@@ -1,8 +1,8 @@
 from flask import (
     Blueprint, render_template, request
 )
-from core.auth import login_required
-from core.database import query_db, upsert_query
+from ..core.auth import login_required
+from ..core.database import query_db, upsert_query
 
 bp = Blueprint('command', __name__, url_prefix='/command')
 

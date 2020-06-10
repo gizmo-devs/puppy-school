@@ -5,8 +5,8 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from core.database import get_db, query_db
-from core.scheduler import set_session
+from ..core.database import get_db, query_db
+from ..core.scheduler import set_session
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
