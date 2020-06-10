@@ -5,8 +5,8 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from .database import get_db, query_db
-from .scheduler import set_session
+from puppy_school_app.core.database import get_db, query_db
+from puppy_school_app.core.scheduler import set_session
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
