@@ -9,7 +9,7 @@ import os
 
 app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'doggie-school.sqlite'),
+        DATABASE=os.path.join(app.instance_path, 'puppy-school.sqlite'),
     )
 try:
     os.makedirs(app.instance_path)
