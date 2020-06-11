@@ -125,9 +125,12 @@
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputLoo">Loo</label>
                             </div>
-                            <input type="text" class="form-control" placeholder="e.g. 30m"
+                            <input type="text" class="form-control" placeholder="e.g. 30"
                                    id="inputLoo" name="inputLoo"
                                    value="{{dog.loo_intervals if (dog is defined) }}">
+                            <div class="input-group-append ">
+                                <label class="input-group-text" for="inputWeighin">mins</label>
+                            </div>
                         </div>
                     </div>
                     <div class="col">
@@ -137,26 +140,48 @@
                             </div>
                             <input type="text" class="form-control" placeholder="e.g. 30m"
                                    id="inputFeeds" name="inputFeeds"
-                                   value="{{dog.food_intervals if dog is defined}}">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend ">
-                                <label class="input-group-text" for="inputWalk">Walks</label>
+                                   value="{{dog.daily_feeds if dog is defined}}">
+                            <div class="input-group-append ">
+                                <label class="input-group-text" for="inputFeeds">per day</label>
                             </div>
-                            <input type="text" class="form-control" placeholder="e.g. 30m"
-                                   id="inputWalk" name="inputWalk" value="{{dog.walk_intervals if (dog is defined)}}">
                         </div>
                     </div>
                     <div class="col">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend ">
-                                <label class="input-group-text" for="inputAlone">Alone</label>
+                                <label class="input-group-text" for="inputWeighin">Weighins</label>
+                            </div>
+                            <input type="text" class="form-control" placeholder="1"
+                                   id="inputWeighin" name="inputWeighin"
+                                   value="{{dog.weight_intervals_in_weeks if dog is defined}}">
+                            <div class="input-group-append ">
+                                <label class="input-group-text" for="inputWeighin">week(s)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend ">
+                                <label class="input-group-text" for="inputWalk">Walk time</label>
+                            </div>
+                            <input type="text" class="form-control" placeholder="e.g. 30"
+                                   id="inputWalk" name="inputWalk" value="{{dog.walk_intervals if (dog is defined)}}">
+                            <div class="input-group-append ">
+                                <label class="input-group-text" for="inputWalk">mins</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend ">
+                                <label class="input-group-text" for="inputAlone">Left alone</label>
                             </div>
                             <input type="text" class="form-control" placeholder="e.g. 30m"
                                    id="inputAlone" name="inputAlone"
                                    value="{{dog.alone_intervals if dog is defined}}">
+                            <div class="input-group-append ">
+                                <label class="input-group-text" for="inputAlone">mins</label>
+                            </div>
                         </div>
                     </div>
                 </div>

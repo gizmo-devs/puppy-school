@@ -41,7 +41,7 @@
                         <thead>
                             <tr>
                                 <th>Habbit</th>
-                                <th>Every</th>
+                                <th>Interval</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,14 +51,14 @@
                         </tr>
                         <tr>
                             <td>Feeds</td>
-                            <td>{{dog.food_intervals if dog.food_intervals != None else '-'}}m</td>
+                            <td>{{dog.daily_feeds if dog.daily_feeds != None else '-'}} per day</td>
                         </tr>
                         <tr>
-                            <td>Walks</td>
+                            <td>Walk duration</td>
                             <td>{{dog.walk_intervals if dog.walk_intervals != None else '-'}}m</td>
                         </tr>
                         <tr>
-                            <td>Left Alone</td>
+                            <td>Left alone</td>
                             <td>{{dog.alone_intervals if dog.alone_intervals != None else '-'}}m</td>
                         </tr>
                         </tbody>
