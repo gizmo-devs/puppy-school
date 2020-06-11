@@ -39,6 +39,7 @@ def upsert_query(query, args=()):
     cur = db.cursor()
     cur.execute(query, args)
     last_id = cur.lastrowid
+    print(last_id)
     try:
         db.commit()
     except sqlite3.Error as e:
@@ -46,7 +47,7 @@ def upsert_query(query, args=()):
         err = True
     except Exception as e:
         print(e)
-        err=True
+        err = True
     if err:
         print("!!! FAILED TO WRITE TO DATABASE !!!")
         return 0
