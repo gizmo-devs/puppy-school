@@ -5,8 +5,11 @@
 {% block content %}
 <div class="container-fluid">
     <h1 class="mt-4">Dogs</h1>
-    <ol class="breadcrumb mb-4">
+    <ol class="breadcrumb mb-4 d-flex">
         <li class="breadcrumb-item active">Dogs</li>
+        <li class="ml-auto">
+            <a href="{{url_for('dogs.upsert')}}" class="btn btn-success btn-sm float-right">Add Dog</a>
+        </li>
     </ol>
     {% for dog in dogs %}
     <div class="card mb-4">

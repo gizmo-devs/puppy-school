@@ -31,12 +31,14 @@ WHERE
     return render_template('dogs/index.html', dogs=dogs)
 
 
-@bp.route('/upsert', defaults={'dog_id': 'empty'}, methods=['GET', 'POST'])
+@bp.route('/upsert', defaults={'dog_id': None}, methods=['GET', 'POST'])
 @bp.route('/upsert/<int:dog_id>', methods=['GET', 'POST'])
 @login_required
 def upsert(dog_id=None):
     if dog_id is not None:
         dog = query_db("SELECT * FROM dogs LEFT JOIN dog_habbits AS dh on dogs.id=dh.dog_id WHERE id = ?", [dog_id,], one=True)
+    else:
+        dog = None
 
     if request.method == 'POST':
         print(request.form)
@@ -80,8 +82,6 @@ def upsert(dog_id=None):
                 # Get id to link to user
                 dog_id = cur.lastrowid
                 cur.execute("INSERT INTO dog_owners (dog_id, user_id) VALUES (?, ?)", [dog_id, session['user_id']])
-
-                print(type(x) for x in [dog_id, habbit_feed, habbit_loo, habbit_walk, habbit_alone])
                 cur.execute("INSERT INTO dog_habbits (dog_id, food_intervals, loo_intervals, walk_intervals, alone_intervals) "
                          "VALUES (?,?,?,?,?)", [dog_id, habbit_feed, habbit_loo, habbit_walk, habbit_alone])
 
