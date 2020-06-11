@@ -38,8 +38,14 @@ def upsert_query(query, args=()):
     db = get_db()
     cur = db.cursor()
     cur.execute(query, args)
-    last_id = cur.lastrowid
-    print(last_id)
+
+    if query.split(' ')[0].upper() == "UPDATE":
+        print('Forcing last id to be 1')
+        last_id = 1
+    else:
+        last_id = cur.lastrowid
+
+
     try:
         db.commit()
     except sqlite3.Error as e:
