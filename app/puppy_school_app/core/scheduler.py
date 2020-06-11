@@ -34,8 +34,10 @@ WHERE dl.dog_id IN (SELECT dog_owners.dog_id FROM dog_owners WHERE user_id=?)"""
         #print(dog['last_loo_break'], dog['loo_intervals'])
         if None not in [dog['last_loo_break'], dog['loo_intervals']]:
             next_loo = dog['last_loo_break'] + datetime.timedelta(minutes=dog['loo_intervals'])
-        if None not in [dog['last_loo_break'], dog['loo_intervals']]:
-            next_loo = dog['last_loo_break'] + datetime.timedelta(minutes=dog['loo_intervals'])
+        else:
+            next_loo = None
+        # if None not in [dog['last_loo_break'], dog['loo_intervals']]:
+        #     next_loo = dog['last_loo_break'] + datetime.timedelta(minutes=dog['loo_intervals'])
 
         #next_feed = datetime.datetime(dog['last_loo_break']) + datetime.timedelta(minutes=dog['food_intervals'])
         session['dogs'][tom_index].update(
