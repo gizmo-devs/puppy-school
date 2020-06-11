@@ -20,39 +20,25 @@
                     </span>
                 </div>
                 <div class="card-body">
-                    Something
+                    {{command.description}}
                 </div>
             </div>
         </div>
         {% if loop.last %}
         <div class="col-6">
             <div class="card bg-success text-white mb-4">
-                <form method="post" action="{{url_for('command.index')}}">
-                    <div class="card-header d-flex">
-                        <h3><input class="form_control command" type="text" id="inputNewCommandName" name="inputNewCommandName"
-                                   placeholder="Add Command" required></h3>
-                            <select class="custom-select command ml-auto" id="inputNewCommandLevel"
-                                      name="inputNewCommandLevel" required>
-                                <option disabled selected>Choose Difficulty</option>
-                                <option value="Easy">Easy</option>
-                                <option value="Intermediate">Intermediate</option>
-                                <option value="Hard">Hard</option>
-                            </select>
-                    </div>
-                    <div class="card-body">
-                        <textarea class="form_control command" style="min-width: 100%" id="inputNewCommandDesc"
-                                  name="inputNewCommandDesc" placeholder="">Add Command Description
-                        </textarea>
-                        <button class="btn btn-light" type="submit">Save</button>
-                    </div>
-                </form>
+                {% include 'commands/command_form.html' %}
             </div>
-
         </div>
         {% endif %}
         {{ "</div>"|safe if loop.index % 2 == 0 }}
     {% else %}
     No Commands Found
+    <div class="row">
+        <div class="col card bg-info text-white mb-4">
+            {% include 'commands/command_form.html' %}
+        </div>
+    </div>
     {% endfor%}
 </div>
 {% endblock %}
