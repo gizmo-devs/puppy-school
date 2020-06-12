@@ -18,6 +18,15 @@ except OSError:
     pass
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    print(e)
+    return render_template('layout/e404.html')
+@app.errorhandler(500)
+def page_not_found(e):
+    print(e)
+    return render_template('layout/e500.html')
+
 db.init_app(app)
 app.register_blueprint(auth.bp)
 app.register_blueprint(dogs.bp)

@@ -43,7 +43,6 @@ def index():
 @bp.route('/upsert', defaults={'loo_id': None}, methods=['GET', 'POST'])
 @bp.route('/upsert/<int:loo_id>', methods=['GET', 'POST'])
 def upsert(loo_id):
-    print (request.form)
     # collect data
     dog_id = request.form['inputDog']
     type = request.form['type_options']
