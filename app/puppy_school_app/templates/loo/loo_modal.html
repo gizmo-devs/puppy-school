@@ -17,7 +17,7 @@
                         {% for dog in dog_data%}
                         <label class="btn btn-secondary btn-block m-1">
                             <input type="radio" name="inputDog" id="option{{loop.index}}"
-                                   value="{{dog.info.id}}" required> {{dog.info.name}} <i class="fas fa-check fade"></i>
+                                   value="{{dog.info.id}}" required> {{dog.info.name}} <span class="fade"><i class="fas fa-check"></i></span>
                         </label>
                         {% endfor %}
                         </div>
@@ -28,15 +28,15 @@
                         <div class="btn-group-toggle d-flex mb-3" data-toggle="buttons">
                             <label class="btn btn-secondary btn-block m-1">
                                 <input type="radio" name="{{opt|lower}}_options" id="{{opt|lower}}_1"
-                                       autocomplete="off" value="Liquid"> Liquid <i class="fas fa-check fade"></i>
+                                       autocomplete="off" value="Liquid"> Liquid <span class="fade"><i class="fas fa-check"></i></span>
                             </label>
                             <label class="btn btn-secondary btn-block m-1">
                                 <input type="radio" name="{{opt|lower}}_options" id="{{opt|lower}}_2"
-                                       autocomplete="off" value="Runny Solid"> Runny Solid <i class="fas fa-check fade"></i>
+                                       autocomplete="off" value="Runny Solid"> Runny Solid <span class="fade"><i class="fas fa-check"></i></span>
                             </label>
                             <label class="btn btn-secondary btn-block m-1">
                                 <input type="radio" name="{{opt|lower}}_options" id="{{opt|lower}}_3"
-                                       autocomplete="off" value="Solid"> Solid <i class="fas fa-check fade"></i>
+                                       autocomplete="off" value="Solid"> Solid <span class="fade"><i class="fas fa-check"></i></span>
                             </label>
                     </div>
                     {% endfor %}

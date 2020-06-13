@@ -78,6 +78,8 @@
            $('input:radio').each(function() {
               if($(this).is(':checked')) {
                 // You have a checked radio button here...
+//                $(this).next().addClass('show')
+                console.log($(this).next());
                 $(this).next().addClass('show')
               }
               else {
