@@ -17,7 +17,7 @@
                         {% for dog in dog_data%}
                         <label class="btn btn-secondary btn-block m-1">
                             <input type="radio" name="inputDog" id="option{{loop.index}}"
-                                   value="{{dog.info.id}}" autocomplete="off"> {{dog.info.name}} <i class="fas fa-check fade"></i>
+                                   value="{{dog.info.id}}" required> {{dog.info.name}} <i class="fas fa-check fade"></i>
                         </label>
                         {% endfor %}
                         </div>
