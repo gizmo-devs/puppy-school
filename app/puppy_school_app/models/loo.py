@@ -43,9 +43,11 @@ def index():
 @bp.route('/upsert', defaults={'loo_id': None}, methods=['GET', 'POST'])
 @bp.route('/upsert/<int:loo_id>', methods=['GET', 'POST'])
 def upsert(loo_id):
+    print(request.form)
     # collect data
     dog_id = request.form['inputDog']
-    type = request.form['type_options']
+    type = [request.form[x] for x in request.form if str(x).endswith('_options')] # if x.endswith('_options')
+    print(type)
     notes = request.form['inputNotes']
 
     now = datetime.datetime.now()
@@ -56,15 +58,16 @@ def upsert(loo_id):
         query = "UPDATE loo_breaks SET dog_id=?, loo_type=?"
         params = [dog_id, type]
     else:
-        query = "INSERT INTO loo_breaks (dog_id, break_time, loo_type) VALUES (?,?,?)"
-        params = [dog_id, now, type]
+        for each in type:
+            query = "INSERT INTO loo_breaks (dog_id, break_time, loo_type) VALUES (?,?,?)"
+            params = [dog_id, now, each]
 
-    if upsert_query(query, params):
-        if upsert_query("UPDATE dog_last SET last_loo_break=? WHERE dog_id=?", [now, dog_id]):
-            pass
-        set_session()
-    else:
-        flash("Loo Break could not be written to Database", "Error")
+            if upsert_query(query, params):
+                if upsert_query("UPDATE dog_last SET last_loo_break=? WHERE dog_id=?", [now, dog_id]):
+                    pass
+                set_session()
+            else:
+                flash("Loo Break could not be written to Database", "Error")
     return redirect(url_for('loo.index'))
 
 

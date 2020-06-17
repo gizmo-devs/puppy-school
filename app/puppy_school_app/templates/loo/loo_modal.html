@@ -23,23 +23,32 @@
                         </div>
                     </div>
                     </i>
-                    {% for opt in ['Type']%}
-                    <label>{{opt}}:</label>
+                    <label>Type:</label>
+                        <div class="btn-group-toggle d-flex mb-3" data-toggle="buttons">
+                        {% for opt in ['Liquid', 'Runny Solid', 'Solid']%}
+                            <label class="btn btn-secondary btn-block m-1">
+                                <input type="checkbox" name="{{opt|replace(' ', '-')|lower}}_options" id="{{opt|lower}}_1"
+                                       autocomplete="off" value="{{opt}}"> {{opt}} <span class="fade"><i class="fas fa-check"></i></span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    {#% for opt in ['Type']% #}
+                    <!--<label>{{opt}}:</label>
                         <div class="btn-group-toggle d-flex mb-3" data-toggle="buttons">
                             <label class="btn btn-secondary btn-block m-1">
-                                <input type="radio" name="{{opt|lower}}_options" id="{{opt|lower}}_1"
+                                <input type="checkbox" name="{{opt|lower}}_options" id="{{opt|lower}}_1"
                                        autocomplete="off" value="Liquid"> Liquid <span class="fade"><i class="fas fa-check"></i></span>
                             </label>
                             <label class="btn btn-secondary btn-block m-1">
-                                <input type="radio" name="{{opt|lower}}_options" id="{{opt|lower}}_2"
+                                <input type="checkbox" name="{{opt|lower}}_options" id="{{opt|lower}}_2"
                                        autocomplete="off" value="Runny Solid"> Runny Solid <span class="fade"><i class="fas fa-check"></i></span>
                             </label>
                             <label class="btn btn-secondary btn-block m-1">
-                                <input type="radio" name="{{opt|lower}}_options" id="{{opt|lower}}_3"
+                                <input type="checkbox" name="{{opt|lower}}_options" id="{{opt|lower}}_3"
                                        autocomplete="off" value="Solid"> Solid <span class="fade"><i class="fas fa-check"></i></span>
                             </label>
-                    </div>
-                    {% endfor %}
+                    </div>-->
+                    {#% endfor %#}
                     <div class="form-group">
                         <label for="inputNotes">Notes:</label>
                         <textarea class="form-control" name="inputNotes" rows="5" id="inputNotes"></textarea>

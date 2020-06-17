@@ -71,23 +71,28 @@
             console.err(val)
         }
     }
+    function check_show_and_hide(e){
+        if(e.is(':checked')) {
+            // You have a checked radio button here...
+            e.next().addClass('show')
+        }
+        else {
+            // Or an unchecked one here...
+            e.next().removeClass('show')
+        }
+    }
 
     $(document).ready(function(){
 
         $('input[type=radio]').on('change', function(){
            $('input:radio').each(function() {
-              if($(this).is(':checked')) {
-                // You have a checked radio button here...
-//                $(this).next().addClass('show')
-                console.log($(this).next());
-                $(this).next().addClass('show')
-              }
-              else {
-                // Or an unchecked one here...
-                $(this).next().removeClass('show')
-              }
+              check_show_and_hide($(this));
             });
-
+        });
+        $('input[type=checkbox]').on('change', function(){
+           $('input:checkbox').each(function() {
+              check_show_and_hide($(this));
+            });
         });
 
         $('.age_calc').each(function(index, e){
