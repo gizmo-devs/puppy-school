@@ -36,8 +36,10 @@ WHERE dl.dog_id IN (SELECT dog_owners.dog_id FROM dog_owners WHERE user_id=?)"""
             next_loo = dog['last_loo_break'] + datetime.timedelta(minutes=dog['loo_intervals'])
         else:
             next_loo = None
-        # if None not in [dog['last_loo_break'], dog['loo_intervals']]:
-        #     next_loo = dog['last_loo_break'] + datetime.timedelta(minutes=dog['loo_intervals'])
+        if None not in [dog['last_weighed']]:
+            next_weigh = dog['last_weighed'] + datetime.timedelta(weeks=1)
+        else:
+            next_weigh= None
 
         #next_feed = datetime.datetime(dog['last_loo_break']) + datetime.timedelta(minutes=dog['food_intervals'])
         session['dogs'][tom_index].update(
@@ -46,7 +48,8 @@ WHERE dl.dog_id IN (SELECT dog_owners.dog_id FROM dog_owners WHERE user_id=?)"""
                 last_fed=dog['last_fed'],
                 last_weighed=dog['last_weighed'],
                 last_loo_break=dog['last_loo_break'],
-                scheduled_loo=next_loo
+                scheduled_loo=next_loo,
+                scheduled_weigh=next_weigh
             )
         )
         #scheduler = BackgroundScheduler()

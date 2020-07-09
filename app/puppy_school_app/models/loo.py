@@ -43,11 +43,9 @@ def index():
 @bp.route('/upsert', defaults={'loo_id': None}, methods=['GET', 'POST'])
 @bp.route('/upsert/<int:loo_id>', methods=['GET', 'POST'])
 def upsert(loo_id):
-    print(request.form)
     # collect data
     dog_id = request.form['inputDog']
     type = [request.form[x] for x in request.form if str(x).endswith('_options')] # if x.endswith('_options')
-    print(type)
     notes = request.form['inputNotes']
 
     now = datetime.datetime.now()

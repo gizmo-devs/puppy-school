@@ -10,20 +10,28 @@
     </ol>
     <div class="row">
         {% set cards = [
-            ('Loo Break', 'last_loo_break', 'scheduled_loo', 'fa-poop', 'loo.index'),
-            ('Weighed','last_weighed', None, 'fa-balance-scale', 'weight.index')
+            ('Loo Break', 'last_loo_break', 'scheduled_loo', 'fa-poop', 'loo.index', 'time'),
+            ('Weighed','last_weighed', 'scheduled_weigh', 'fa-balance-scale', 'weight.index', 'date')
         ]%}
         {# ('Fed', 'last_fed', '', ''), #}
-        {% for title, element_name, element_name_next, icon, link in cards%}
+        {% for title, element_name, element_name_next, icon, link, show in cards%}
         <div class="col-xl-3 col-md-6">
             <div class="card mb-4">
                 <h5 class="card-header"><i class="fas {{icon}}"></i> Last {{title}}</h5>
                 <ul class="list-group list-group-flush">
                     {% for dog in session['dogs'] %}
-                        <li class="list-group-item ">
-                            <strong>{{dog.name}}</strong>
-                            {% if (element_name_next != None) and (dog[element_name] != None) and (dog[element_name_next] != None) and (dog[element_name_next] is defined) %}
-                              {{ dog[element_name].strftime('%H:%M') }} {{dog[element_name_next].strftime('%H:%M')}}
+                        <li class="list-group-item">
+                            <div class="row">
+                            <div class="col-4"><strong>{{dog.name}}</strong></div>
+                            {% if (element_name_next != None) and (dog[element_name_next] != None) and (dog[element_name_next] is defined) and (dog[element_name] != None) %}
+                                {% if show == 'time' %}
+                                    <div class="col-4">{{ dog[element_name].strftime('%H:%M') }}</div>
+                                    <div class="col-4">{{ dog[element_name_next].strftime('%H:%M') }}</div>
+                                {% elif show == 'date' %}
+                                    <div class="col-4">{{ dog[element_name].strftime('%d %b') }}</div>
+                                    <div class="col-4 ">{{ dog[element_name_next].strftime('%d %b') }}</div>
+                                {% endif %}
+                            </div>
                             {% else %}
                                 -
                             {% endif %}
