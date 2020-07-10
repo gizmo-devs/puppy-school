@@ -21,22 +21,23 @@
     })
 
     function calc_age(){
-        var y = $('#inputDogDOBYear');
-        var m = $('#inputDogDOBMonth');
-        var d = $('#inputDogDOBDay');
+        var y = $('#inputDogDOBYear').val();
+        var m = $('#inputDogDOBMonth').val();
+        var d = $('#inputDogDOBDay').val();
 
-        if ( (y.val().length === 0 ) || (m.val().length === 0) || (d.val().length === 0 ) ) {
-            console.log("Not a valid Date")
+        if ( (y.length === 0 ) || (m.length === 0) || (d.length === 0 ) ) {
+            console.log("Not a valid Date");
         } else {
             var cd = moment();
-            var dob = moment([y.val(),m.val()-1, d.val()]);
-            var diff = cd.diff(dob, 'days')
-            var dog_age = moment.duration(diff, 'days').format('M [Months], w [Weeks]')
+            var dob = moment([y,m-1, d]);
+            var diff = cd.diff(dob, 'days');
+            var dog_age = moment.duration(diff, 'days').format('M [Months], w [Weeks]');
             console.log(
                 cd,
                 dob,
                 diff,
-                moment.duration(diff, 'days').format('Y [Years], M [Months] w [Weeks]'));
+                moment.duration(diff, 'days').format('Y [Years], M [Months] w [Weeks]')
+            );
             return dog_age;
         }
     }
@@ -45,7 +46,7 @@
         var btn = $(this).html('<span class="spinner-grow text-muted"></span>');
         var command_id = btn.data('command-id');
         var dog_id = btn.data('dog-id');
-        var action = btn.data('action')
+        var action = btn.data('action');
         //var ch_avg = btn.parent().siblings('input').val();
         var post_url = window.location
         console.log(post_url)
@@ -61,8 +62,9 @@
                 console.log(r)
                 response_handler(r, btn)
             }
-        })
-    })
+        });
+    });
+
     function response_handler(val, btn){
         if (val) {
             btn.html('<span class="fa fa-check"></span>').toggleClass('btn-danger btn-success');
@@ -71,6 +73,7 @@
             console.err(val)
         }
     }
+
     function check_show_and_hide(e){
         if(e.is(':checked')) {
             // You have a checked radio button here...
@@ -104,9 +107,9 @@
             $(this).html(moment.duration(diff, 'days').format('Y [Years], M [Months] w [Weeks]'))
         })
         $('.opn_training_modal').on('click', function(){
-           var dog_id = $(this).data('dog-id');
+            var dog_id = $(this).data('dog-id');
 
-           $.get("dog/" + dog_id, function(data) {
+            $.get("dog/" + dog_id, function(data) {
                 var e = $('.modal-body .form-group[data-command-id]')
                 $.each(e, function(){
                     var ce = $(this);
@@ -117,10 +120,17 @@
                     })
                 })
             })
-           $("#trainingModal").modal('show');
+            $("#trainingModal").modal('show');
         });
         $('input[type=range]').on('change', function(){
             $(this).next().html(this.value)
+        })
+        $('.dt').each(function(index, e){
+            if (moment().isAfter($(this).data('ts'))){
+                console.log($(this).data('ts'), $(this))
+                $(this).addClass('badge badge-warning')
+            }
+            //$(this).html(moment.duration(diff, 'days').format('Y [Years], M [Months] w [Weeks]'))
         })
         $('#calcDogAge').val(calc_age());
     });
