@@ -3,5 +3,6 @@
 .idea
 
 *.pyc
-app/app/static/src/pug/*
-app/app/static/src/scss/*
+app/puppy_school_app/static/src/pug/*
+app/puppy_school_app/static/src/scss/*
+app/puppy_school_app/api/
