@@ -85,3 +85,20 @@ def dog_training(dog_id):
 def myconverter(o):
     if isinstance(o, datetime.datetime):
         return o.__str__()
+
+@bp.route('/chart/<dog_id>')
+def get_chart_data(dog_id, chart_type="summary"):
+    if chart_type == "summary":
+        query = """SELECT 
+            command, command_progress, rec_date
+        FROM 
+            dog_training_progress
+            join dog_commands on command_id = dog_commands.id
+        WHERE 
+            dog_id = ?
+        group by 
+            command_id"""
+    else:
+        pass
+
+    return jsonify(query_db(query, [dog_id]))

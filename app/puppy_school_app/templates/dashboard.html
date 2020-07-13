@@ -81,33 +81,46 @@
 {% for dog in session.dogs %}
     $.get("{{url_for('weight.get_dogs_weights', dog_id=dog.id)}}",
         function(r){
-            process_response(r)
+            process_response(r, "myAreaChart")
         }
     );
+    $.get("{{url_for('training.get_chart_data', dog_id=dog.id)}}",
+        function(r){
+        process_response(r, "myBarChart")
+    });
 {% endfor %}
 
-function process_response(data){
+function process_response(data, elem){
     console.log(data)
     var keys = []
     var vals = []
-    $.each(data, function(key, val){
-        keys.push(moment(this.date_measured).format("D MMM"));
-        vals.push(this.weight);
-    });
-    console.log("Keys:", keys, "Values:", vals)
-    render_chart('myAreaChart', keys, vals)
+    if (elem === "myAreaChart") {
+        $.each(data, function(key, val){
+            keys.push(moment(this.date_measured).format("D MMM"));
+            vals.push(this.weight);
+        });
+        chart_type = 'line'
+    } else {
+        $.each(data, function(key, val){
+            keys.push(this.command);
+            vals.push(this.command_progress);
+        });
+        chart_type = 'bar'
+    }
+    //console.log("Keys:", keys, "Values:", vals)
+    render_chart(chart_type, elem, keys, vals)
 }
 
-function render_chart(elem, keys, values) {
+function render_chart(chart_type, elem, keys, values) {
     var ctx = document.getElementById(elem);
     var myLineChart = new Chart(ctx, {
-      type: 'line',
+      type: chart_type, //'line',
       data: {
         labels:
             keys
         ,
         datasets: [{
-          label: "tiggy",
+          label: "Tiggy",
           lineTension: 0.3,
           backgroundColor: "rgba(2,117,216,0.2)",
           borderColor: "rgba(2,117,216,1)",
