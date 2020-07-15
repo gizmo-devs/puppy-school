@@ -47,11 +47,11 @@ def upsert(loo_id):
     # collect data
     dog_id = request.form['inputDog']
     type = [request.form[x] for x in request.form if str(x).endswith('_options')] # if x.endswith('_options')
-    notes = request.form['inputNotes']
+    # notes = request.form['inputNotes']
 
     now = datetime.datetime.now()
 
-    print(dog_id, type, notes)
+    print(dog_id, type)
 
     if loo_id:
         query = "UPDATE loo_breaks SET dog_id=?, loo_type=?"
