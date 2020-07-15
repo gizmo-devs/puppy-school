@@ -24,7 +24,7 @@
         <div class="card-body">
             {% for command in dog.dog_training %}
             {{"<div class='row'>"|safe if loop.index0 % 2 == 0 }}
-                <div class="col-6">
+                <div class="col-sm-6">
                     <div class="card mb-4">
                         <div class="card-header d-flex">
                             <h3>{{command.command}}</h3>

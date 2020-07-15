@@ -122,9 +122,11 @@
             })
             $("#trainingModal").modal('show');
         });
+
         $('input[type=range]').on('change', function(){
-            $(this).next().html(this.value)
+            $(this).prev().html(this.value)
         })
+
         $('.dt').each(function(index, e){
             if (moment().isAfter($(this).data('ts'))){
                 console.log($(this).data('ts'), $(this))
