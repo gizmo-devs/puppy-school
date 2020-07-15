@@ -14,7 +14,7 @@
             <h3>
                 <i class="fas fa-dog mr-1"></i> {{dog.info.name}}
             </h3>
-            <a href="{{url_for('training.command_link', dog_id=dog.info.id)}}" role="button" class="btn btn-primary ml-auto mr-1">
+            <a href="{{url_for('training.command_link', dog_id=dog.info.id)}}" role="button" class="btn btn-primary ml-auto mr-1 align-self-center">
                 Link Commands
             </a>
             <button type="button" class="btn btn-primary opn_training_modal" data-dog-id={{dog.info.id}}>
@@ -28,7 +28,7 @@
                     <div class="card mb-4">
                         <div class="card-header d-flex">
                             <h3>{{command.command}}</h3>
-                            <span class="ml-auto badge badge-secondary align-self-center">
+                            <span class="ml-auto badge badge-secondary p-2 align-self-center">
                                 {{command.level}}
                             </span>
                         </div>
@@ -36,7 +36,7 @@
                             {{command.description if not command.description == None }}
                             <h4>History</h4>
                             {% if command.progress|length > 0 %}
-                            <table class="table">
+                            <table class="table table-sm">
                                 <thead>
                                 <tr>
                                     <th>Date</th><th>Score</th>
@@ -48,8 +48,9 @@
                                 <tfoot>
                                 <tr>
                                     <th colspan="2">
-                                        <a href=".{{collapse_class}}" class="btn btn-primary" role="button" data-toggle="collapse"  >
-                                            More</a>
+                                        <button class="btn btn-primary more" type="button" data-toggle="collapse"
+                                           data-target=".{{collapse_class}}" aria-expanded="false" aria-controls="{{collapse_class}}">
+                                            More</button>
                                     </th>
                                 </tr>
                                 </tfoot>
@@ -76,4 +77,15 @@
     {% endfor %}
 </div>
 {% include 'training/training_modal.html'%}
+
+
+{% endblock %}
+
+{% block script %}
+<script>
+    $('.more').on('click', function(){
+        var cls = $(this).data('target');
+        $('tr'+cls).collapse('toggle');
+    })
+</script>
 {% endblock %}

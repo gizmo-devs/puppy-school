@@ -25,7 +25,12 @@ def index():
         for c in dog_commands:
             tom_index = next((index for (index, d) in enumerate(dog_dict['dog_training']) if d["command_id"] == c['id']), None)
             #print(tom_index)
-            dogs_progress = query_db("""SELECT * FROM dog_training_progress WHERE dog_id = ? and command_id = ? ORDER BY rec_date desc""", [ d['id'], c['id'] ])
+            dogs_progress = query_db("""
+                SELECT command_progress, rec_date
+                FROM dog_training_progress 
+                WHERE dog_id = ? and 
+                command_id = ? 
+                ORDER BY rec_date desc""", [ d['id'], c['id'] ])
             dog_dict['dog_training'][tom_index]['progress'] = dogs_progress
 
 

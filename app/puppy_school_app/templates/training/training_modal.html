@@ -24,11 +24,11 @@
                     </div>
                     {% for command in commands%}
                     <div class="form-group d-none" data-command-id="{{command.id}}">
-                        <label for="command{{command.id}}Range">{{command.command}}</label>
+                        <label for="command{{command.id}}Range">{{command.command}}</label>: <i></i>
                         <input type="range" class="custom-range" id="command{{command.id}}Range"
                                name="rangeInput_{{command.id}}"
                                min="0" max="10" value="0">
-                        <i></i>
+
                     </div>
                     {% endfor %}
 <!--                    <div class="form-group">-->
