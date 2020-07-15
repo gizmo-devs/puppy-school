@@ -12,10 +12,15 @@
     <div class="card mb-4">
         <div class="card-body row">
             {% for dog in dog_data %}
-            <div class="col-md-12">
 
+                {% for t in dog.last_break %}
+                <div class="col-sm-6">
+                    <span class="fas {{ 'fa-map-marker r-180 wee_green' if t.loo_type == 'Liquid' else 'fa-poop poo_brown'}}"></span> :: {{t.break_time.strftime('%d %b %Y %H:%M')}}
+                </div>
+                {% else %}
+                no breaks recorded
+                {% endfor %}
                 {{'LAST BREAK:: ' + dog.last_break.break_time.strftime('%d %b %Y %H:%M') if dog.last_break.break_time is defined}}
-            </div>
             {% endfor %}
         </div>
     </div>
@@ -38,7 +43,7 @@
                             <tr>
                                 <th>Date</th>
                                 <th>Type</th>
-                                <th>Notes</th>
+<!--                                <th>Notes</th>-->
                             </tr>
                             </thead>
                             <tbody>
@@ -47,11 +52,11 @@
                                 <td>{{rec.break_time.strftime('%d %b %Y %H:%M')}}</td>
                                 <td>{{rec.loo_type}}</td>
 
-                                <td>{{'True' if rec.note}}</td>
+<!--                                <td>{{'True' if rec.note}}</td>-->
                             </tr>
                             {% else %}
                             <tr>
-                                <td class="text-center" colspan="7">No Walks recorded</td>
+                                <td class="text-center" colspan="7">No Loo breaks recorded</td>
                             </tr>
                             {% endfor %}
 

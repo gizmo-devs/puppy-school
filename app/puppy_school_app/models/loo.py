@@ -29,12 +29,13 @@ def index():
         """, [dog['id'],])
         last_break = query_db("""
         SELECT 
-            break_time
+            loo_type, break_time
         FROM 
             loo_breaks AS lb 
-            WHERE dog_id = ?
+        WHERE dog_id = ? AND loo_type IN ('Liquid', 'Solid')    
+        GROUP BY loo_type
         ORDER BY break_time desc
-        """, [dog['id'],], one=True)
+        """, [dog['id'],])
         dog_data = dict(info=dog_info, last_break=last_break, loo_breaks=dog_loos) #, chart_colour=get_random_colour())
         data.append(dog_data)
     return render_template('loo/index.html', dog_data=data)
