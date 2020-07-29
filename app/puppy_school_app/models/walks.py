@@ -31,7 +31,7 @@ WHERE
     data = []
     for dog in session['dogs']:
         dog_info = query_db(
-            """SELECT id, name FROM dogs WHERE id = ?""",
+            """SELECT id, name, dob FROM dogs WHERE id = ?""",
             [dog['id'],],
             one=True
         )
