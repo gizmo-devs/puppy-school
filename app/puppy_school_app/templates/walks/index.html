@@ -6,71 +6,87 @@
 <div class="container-fluid">
     <h1 class="mt-4">Walks</h1>
     <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="{{url_for('dashboard')}}">Dashboard</a></li>
         <li class="breadcrumb-item active">Walks</li>
     </ol>
 
     <div class="card mb-4">
-        <div class="card-body row">
+        <div class="card-body col-4">
             {% for dog in dog_data %}
-            <div class="col-md-6">
-                <canvas id="myAreaChart_{{dog.info.id}}" width="100%" height="30"></canvas>
+<!--            <div class="col-md-6">-->
+<!--                <canvas id="myAreaChart_{{dog.info.id}}" width="100%" height="30"></canvas>-->
+<!--            </div>-->
+           <div class="card" data-toggle="collapse" data-target="#{{dog.info.name}}_until_next">
+               <div class="card-header">
+                   <h3 class="card-title">{{dog.info.name}} can walk:</h3>
+               </div>
+               <div class="card-body p-0">
+                    <div class="progress" style="height:10px; border-radius:0px">
+                        <div class="progress-bar" id="{{dog.info.id}}_walk_duration_bar" style="width:10%"></div>
+                    </div>
+                   <div id="{{dog.info.name}}_until_next" class="collapse text-center bg-warning p-2">
+                    {{dog.info.name}} can walk for <span class="{{dog.info.id}}_next_walk_dur"></span>m <span class="{{dog.info.id}}_walk_dur_countdown"></span>
+                    </div>
+                    <h5 class="display-4 p-4"><span class="{{dog.info.id}}_walk_duration"></span>m</h5>
+                </div>
             </div>
+
             {% endfor %}
         </div>
     </div>
-    <div class="card mb-4">
-        <div class="card-header d-flex">
-            <h3><i class="fas fa-table mr-1"></i>
-            History</h3>
-            <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#walkModal">
-                Log Walk
-            </button>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                {% for dog in dog_data %}
-                <div class="col">
-                    <h4>{{dog.name}}</h4>
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Location</th>
-                                <th>Behaviour Score</th>
-                                <th>Socialised Score</th>
-                                <th>Callback Score</th>
-                                <th>Total Score</th>
+<!--    <div class="card mb-4">-->
+<!--        <div class="card-header d-flex">-->
+<!--            <h3><i class="fas fa-table mr-1"></i>-->
+<!--            History</h3>-->
+<!--            <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#walkModal">-->
+<!--                Log Walk-->
+<!--            </button>-->
+<!--        </div>-->
+<!--        <div class="card-body">-->
+<!--            <div class="row">-->
+<!--                {% for dog in dog_data %}-->
+<!--                <div class="col">-->
+<!--                    <h4>{{dog.name}}</h4>-->
+<!--                    <div class="table-responsive">-->
+<!--                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">-->
+<!--                            <thead>-->
+<!--                            <tr>-->
+<!--                                <th>Date</th>-->
+<!--                                <th>Location</th>-->
+<!--                                <th>Behaviour Score</th>-->
+<!--                                <th>Socialised Score</th>-->
+<!--                                <th>Callback Score</th>-->
+<!--                                <th>Total Score</th>-->
 
-                                <th>Notes</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for rec in dog.walks %}
-                            <tr>
-                                <td>{{rec.walked_date.strftime('%d %b %Y %H:%M')}}</td>
-                                <td>{{rec.loc}}</td>
-                                <td>{{rec.behaviour_score}}</td>
-                                <td>{{rec.callback_score}}</td>
-                                <td>{{rec.socialised_score}}</td>
-                                <td>{{rec.total_score}}</td>
+<!--                                <th>Notes</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            {% for rec in dog.walks %}-->
+<!--                            <tr>-->
+<!--                                <td>{{rec.walked_date.strftime('%d %b %Y %H:%M')}}</td>-->
+<!--                                <td>{{rec.loc}}</td>-->
+<!--                                <td>{{rec.behaviour_score}}</td>-->
+<!--                                <td>{{rec.callback_score}}</td>-->
+<!--                                <td>{{rec.socialised_score}}</td>-->
+<!--                                <td>{{rec.total_score}}</td>-->
 
-                                <td>{{'True' if rec.note}}</td>
-                            </tr>
-                            {% else %}
-                            <tr>
-                                <td class="text-center" colspan="7">No Walks recorded</td>
-                            </tr>
-                            {% endfor %}
+<!--                                <td>{{'True' if rec.note}}</td>-->
+<!--                            </tr>-->
+<!--                            {% else %}-->
+<!--                            <tr>-->
+<!--                                <td class="text-center" colspan="7">No Walks recorded</td>-->
+<!--                            </tr>-->
+<!--                            {% endfor %}-->
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                {% endfor%}
-            </div>
-        </div>
-    </div>
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                {% endfor%}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
 
 {% include 'walks/walks_modal.html' %}
@@ -141,5 +157,48 @@ var myLineChart = new Chart(ctx, {
 });
 {% endfor %}
 
+</script>
+{% endblock %}
+
+{% block script %}
+<script>
+//    {% for dog in dog_data %}
+//        var dog_dob = moment('{{dog.info.dob}}');
+//        var now = moment();
+//        var weeks_old = now.diff(dog_dob, 'weeks');
+//        var next_dur = dog_dob.add(Math.ceil(weeks_old / 4) * 4, 'w')
+//        console.log(weeks_old, now.to(next_dur))
+//        $( '.{{dog.info.id}}_walk_duration' ).html(Math.floor(weeks_old / 4) * 5)
+//        $( '#{{dog.info.id}}_walk_duration_bar' ).css('width', (weeks_old % 4) / 4 * 100 +'%')
+//        $( '.{{dog.info.id}}_walk_dur_countdown' ).html(now.to(next_dur))
+//        console.log('unill next walk:', 4 - (weeks_old % 4))
+//        gen_dogs_walk_info(moment('{{dog.info.dob}}'), {{dog.info.id}})
+//    {% endfor %}
+
+var dog_array = [
+    {% for dog in dog_data %}
+    [moment('{{dog.info.dob}}'),{{dog.info.id}}]{{ "," if not loop.last }}
+    {% endfor %}
+]
+
+$.each(dog_array, function(i, dog) {
+    gen_dogs_walk_info(dog[0], dog[1])
+})
+
+function gen_dogs_walk_info(dob, id){
+    var now = moment();
+    var walk_data = {
+        weeks_old : now.diff(dob, 'weeks'),
+        curr_dur : function() { return Math.floor(this.weeks_old / 4) * 5; },
+        next_dur : function() { return this.curr_dur() + 5; },
+        next_date : function() { return dob.add(Math.ceil(this.weeks_old / 4) * 4, 'w');}
+    }
+    $( '.'+id+'_walk_duration' ).html(walk_data.curr_dur())
+    $( '#'+id+'_walk_duration_bar' ).css('width', (walk_data.weeks_old % 4) / 4 * 100 +'%')
+    $( '.'+id+'_next_walk_dur' ).html(walk_data.next_dur())
+    $( '.'+id+'_walk_dur_countdown' ).html(now.to(walk_data.next_date()))
+    console.log(Math.ceil(walk_data.weeks_old / 4)*4)
+    console.log(walk_data);
+}
 </script>
 {% endblock %}
