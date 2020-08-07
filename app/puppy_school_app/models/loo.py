@@ -29,15 +29,24 @@ def index():
         """, [dog['id'],])
         last_break = query_db("""
         SELECT 
-            loo_type, break_time
+            loo_type, MAX(break_time) as break_time
         FROM 
             loo_breaks AS lb 
         WHERE dog_id = ? AND loo_type IN ('Liquid', 'Solid')    
         GROUP BY loo_type
         ORDER BY break_time desc
         """, [dog['id'],])
+        print(last_break)
+
+        for i, rec in enumerate(last_break):
+            dt = datetime.datetime.strptime(last_break[i]['break_time'], "%Y-%m-%d %H:%M:%S.%f")
+            last_break[i]['break_time'] = dt
+
         dog_data = dict(info=dog_info, last_break=last_break, loo_breaks=dog_loos) #, chart_colour=get_random_colour())
+
         data.append(dog_data)
+
+
     return render_template('loo/index.html', dog_data=data)
 
 
